@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Le Tetris-botté</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- If the phonegap library is present, set a global variable -->
+  <script type="text/javascript" src="{{ site.baseurl }}phonegap.js" onerror="phoneGap=false;"></script>
+  <style type="text/css">
+      #controlPanel {
+      }
+      #debug2 {
+        display:block;
+      }
+   /*   #left {
+        float:left;
+        margin-right: 30px;
+        padding: 0;
+      }
+
+      #right {
+      }
+
+      #footer {
+        clear: both;
+      }*/
+
+      #main {
+        margin-top: 60px;
+      }
+
+  </style>
+
+  <link href="{{ site.baseurl }}assets/pygments.css" rel="stylesheet">
+  <link href="{{ site.baseurl }}assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="{{ site.baseurl }}assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  
+	<script type="text/javascript">
+	function getMobile() {
+	  isMobile={
+		Android: function() {
+		  return navigator.userAgent.match(/Android/i) ? true : false;
+		},
+		BlackBerry: function() {
+		  return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+		},
+		iOS: function() {
+		  return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+		},
+		Windows: function() {
+		  return navigator.userAgent.match(/IEMobile/i) ? true : false;
+		},
+		WebOS: function() {
+		  return navigator.userAgent.match(/webOS/i) ? true : false;
+		},
+		Symbian: function() {
+		  return navigator.userAgent.match(/SymbianOS/i) ? true : false;
+		},
+		any: function() {
+		  return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows() || isMobile.WebOS() || isMobile.Symbian() );
+		}
+	  };
+	  return (isMobile);
+	}
+
+	</script>
+</head>
+<body>
+
+<script type="text/javascript">
+	document.body.onload=function() {
+	  if (getMobile().any()==true) {
+		if (getMobile().Android()==true) document.getElementById('getTheApp_android').style.display='';
+		if (getMobile().iOS()==true) document.getElementById('getTheApp_ios').style.display='';
+		if (getMobile().Windows()==true) document.getElementById('getTheApp_windows').style.display='';
+		if (getMobile().BlackBerry()==true) document.getElementById('getTheApp_blackberry').style.display='';
+		if (getMobile().WebOS()==true) document.getElementById('getTheApp_webos').style.display='';
+		if (getMobile().Symbian()==true) document.getElementById('getTheApp_symbian').style.display='';
+	  }
+	  else {
+	    if (document.getElementById('getTheApps')!=null)
+	      document.getElementById('getTheApps').style.display='';
+	  }
+	  if (phoneGap==false) {
+	    document.getElementById('getTheAppsWide').style.display='none';
+          }
+	};
+</script>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="{{ site.baseurl }}index.html" style="margin: 0;
+      margin-right: 30px; margin-top: 3px; padding:0;"><img src="{{ site.baseurl }}images/logo.png" style="height: 35px; padding: 0; margin: 0;"/></a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active"><a href="{{ site.baseurl }}index.html">Documentation</a></li>
+          <li><a href="{{ site.baseurl }}grain/index.html">Simulateur</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" id="main">
+
+<div id="getTheAppsWide">
+<p id="getTheApp_android" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/android">Download Android app</a></p>
+<p id="getTheApp_ios" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/iosd">Download iOS app</a></p>
+<p id="getTheApp_winphone" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/winphone">Download Windows phone app</a></p>
+<p id="getTheApp_blackberry" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/blackberry">Download Blackberry app</a></p>
+<p id="getTheApp_webos" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/webos">Download WebOS app</a></p>
+<p id="getTheApp_symbian" style="display: none"><a href="https://build.phonegap.com/apps/163737/download/symbian">Download Symbian app</a></p>
+<div id="getTheApps" style="display: none"><a href="getTheApps.html">T&eacute;l&eacute;charger l'application mobile</a></div>
+</div>
+
+{{content}}
+
+	</div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ site.baseurl }}assets/bootstrap/js/jquery.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-button.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="{{ site.baseurl }}assets/bootstrap/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
