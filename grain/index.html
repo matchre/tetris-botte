@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="enchant.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <style type="text/css">
+        body {
+            text-align: center;
+            height: 100%;
+        }
+
+        #buttons {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        #enchant-stage {
+            align: center;
+            vertical-align: center;
+            padding-left: auto;
+            padding-right: auto;
+            display: inline-block; 
+        }
+
+        #container {
+            /*background: yellow;*/
+        }
+
+        .text {
+            text-align: left;
+            font-size: 75%;
+            padding: 5px;
+        }
+
+    </style>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar" id="bar">
+      <div class="navbar-inner">
+        <div class="container">
+           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html" style="margin: 0; margin-right: 30px; margin-top: 3px; padding:0;"><img src="logo.png" style="height: 35px; padding: 0; margin: 0;"/></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="index.html">Documentation</a></li>
+              <li class="active"><a href="simulator.html">Simulateur</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="width: 100%">
+        <div class="row-fluid">
+            <div class="span2 text">
+                <h6> Bienvenue </h6>
+                <br />
+                <p> Ce jeu est une version simplifé du célèbre 
+                    <a href="http://fr.wikipedia.org/wiki/Tetris">Tetris</a>
+                    dans lequel vous pouvez affronter un ordinateur jouant en
+                    utilisant un algorithme dit de <i>contrôleur optimal</i>
+                </p>
+                <p>
+                    Pour jouer, cliquez là où vous voulez placer la pièce et
+                    utilisez les boutons pour la tourner. Plus de détails sur 
+                    les règles sur <a href="rules.html">la page de documentation
+                    </a>.
+                </p>
+            </div>
+
+            <div class="span8" id="container">
+            </div>
+
+            <div class="span2" id="log">
+                Lorem ipsum dolor sit amet consectetur et nulla pariatur
+            </div>
+        </div> <!-- row-fluid -->
+
+        <div class="row-fluid">
+            <div id="buttons" class="span12">
+<!--                 <a class="button" href='#' onclick='javascript:onRotate("left")'><- left</a>
+                <a type="button" href='#' class="button" onclick="javascript:onValidate()">OK!</a>
+                <a type="button" href='#' class="button" onclick="javascript:onRotate()">right -></a> -->
+
+                <input type="button" value="&#x21ba;" onClick='javascript:onRotate("left")' />
+                <input type="button" value="OK!" onClick="javascript:onValidate()" />
+                <input type="button" value="&#x21bb;" onClick="javascript:onRotate()" />
+            </div>
+        </div>
+
+    </div> <!-- container -->
+</body>
+</html>
