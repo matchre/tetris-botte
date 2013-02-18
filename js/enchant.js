@@ -644,10 +644,7 @@ enchant.Game = enchant.Class.create(enchant.EventTarget, {
              * FIXME: that is _DIRTY_
              */
 
-            container.style.height = (window.innerHeight
-                - window.document.getElementById("buttons").offsetHeight
-                - window.document.getElementById("bar").offsetHeight 
-                - 18) + 'px';
+            container.style.height = '400px';
 
             if (container.firstChild) {
                 container.insertBefore(stage, container.firstChild);
