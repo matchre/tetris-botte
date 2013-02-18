@@ -98,11 +98,6 @@ GameSurface = function(game, width, height, blockWidth, blockHeight, x, y)
     }
 }
 
-// window.onload = function()
-// {
-
-// }
-
 window.onload = function()
 {    
     engine = new GameEngine(config);

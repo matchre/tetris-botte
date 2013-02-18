@@ -1,6 +1,3 @@
----
-title: Jouer contre l'ordinateur
----
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +30,6 @@ title: Jouer contre l'ordinateur
         }
 
         #container {
-            /*background: yellow;*/
         }
 
         .text {
@@ -43,27 +39,10 @@ title: Jouer contre l'ordinateur
         }
 
     </style>
-    <link href="{{ site.baseurl }}assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar" id="bar">
-      <div class="navbar-inner">
-        <div class="container">
-           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="index.html" style="margin: 0; margin-right: 30px; margin-top: 3px; padding:0;"><img src="../icon.png" style="height: 35px; padding: 0; margin: 0;"/></a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a href="{{ site.baseurl }}index.html">Documentation</a></li>
-              <li class="active"><a href="index.html">Jouer contre l'ordinateur</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+ 
     <div class="container" style="width: 100%">
         <div class="row-fluid">
             <div class="span2 text">
@@ -76,9 +55,7 @@ title: Jouer contre l'ordinateur
                 </p>
                 <p>
                     Pour jouer, cliquez là où vous voulez placer la pièce et
-                    utilisez les boutons pour la tourner. Plus de détails sur 
-                    les règles sur <a href="rules.html">la page de documentation
-                    </a>.
+                    utilisez les boutons pour la tourner.
                 </p>
             </div>
 
@@ -92,10 +69,6 @@ title: Jouer contre l'ordinateur
 
         <div class="row-fluid">
             <div id="buttons" class="span12">
-<!--                 <a class="button" href='#' onclick='javascript:onRotate("left")'><- left</a>
-                <a type="button" href='#' class="button" onclick="javascript:onValidate()">OK!</a>
-                <a type="button" href='#' class="button" onclick="javascript:onRotate()">right -></a> -->
-
                 <input type="button" value="&#x21ba;" onClick='javascript:onRotate("left")' />
                 <input type="button" value="OK!" onClick="javascript:onValidate()" />
                 <input type="button" value="&#x21bb;" onClick="javascript:onRotate()" />
