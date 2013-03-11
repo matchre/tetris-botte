@@ -199,8 +199,11 @@ window.onload = function()
 
     this.onValidate = function()
     {
-        m_playing = false;
-        engine.userAction(new Action(m_pieceX, m_rotate), this);
+        if(m_playing)
+        {
+            m_playing = false;
+            engine.userAction(new Action(m_pieceX, m_rotate), this);
+        }
     }
 
     this.validate = function(map)
