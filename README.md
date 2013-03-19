@@ -1,6 +1,6 @@
-# Tetris-Botté
+# Grain 3.0 : Tetris Botté
 
-Grain 3.0 : [le Tetris-botté](http://inriamecsci.github.com/tetris-botte)
+* [Le grain en action](http://inriamecsci.github.com/#!/grains/tetris-botte)
 
 ## Repository architecture
 
