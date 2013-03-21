@@ -2,7 +2,7 @@
 	"name": "Le Tetris Botté",
 	"width": "800px",
 	"height": "500px"
-	"comment" : "",
+	"comment" : "Une illustration d'un calcul de joueur optimal, par apprentissage",
 	"links" : [
 		{
 			"title" : "Document qui document ce grain",
