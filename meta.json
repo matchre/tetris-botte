@@ -1,7 +1,7 @@
 {
 	"name": "Le Tetris Botté",
 	"width": "800px",
-	"height": "500px"
+	"height": "500px",
 	"comment" : "Une illustration d'un calcul de joueur optimal, par apprentissage",
 	"links" : [
 		{
@@ -10,16 +10,16 @@
 		}
 		],
 	"authors" : [
-		{			
-		        "name" : "Scherrer, Bruno",
-			"email" "bruno.scherrer@inria.fr",
+		{
+		    "name" : "Scherrer, Bruno",
+			"email" : "bruno.scherrer@inria.fr",
 			"url" : "http://webloria.loria.fr/~scherrer",
 			"role" : "concepteur",
 			"comment" : "cahier des charges et calculs des tables de valeurs"
 		},
-		{			
-		        "name" : "Testard, Léo",
-			"email" "leo.testard@gmail.com",
+		{
+		    "name" : "Testard, Léo",
+			"email" : "leo.testard@gmail.com",
 			"role" : "auteur",
 			"comment" : "version HTLM5/JS"
 		}
