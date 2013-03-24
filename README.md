@@ -1,4 +1,7 @@
-# Grain 3.0 : Tetris Botté
+Grain 3.0 : Tetris Botté
+========================
+
+[![Build Status](https://travis-ci.org/InriaMecsci/tetris-botte.png?branch=master)](https://travis-ci.org/InriaMecsci/tetris-botte)
 
 * [Le grain en action](http://inriamecsci.github.com/#!/grains/tetris-botte)
 
