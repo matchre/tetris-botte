@@ -13,7 +13,7 @@ OptimalController = function()
          * phonegap, and if so, use the phonegap API to read local files on the
          * device.
          */
-        var httpRequestUrl = "http://www-sop.inria.fr/science-participative/tetrisbote/?index=" + index;
+        var httpRequestUrl = "https://iww.inria.fr/mecsci/grains3.0/tetris-botte-serv/?index=" + index;
         var req = new XMLHttpRequest();
 
         req.open("GET", httpRequestUrl, false);
