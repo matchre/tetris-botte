@@ -3,6 +3,7 @@
 	"width": "800px",
 	"height": "500px",
 	"comment" : "Une illustration d'un calcul de joueur optimal, par apprentissage",
+	"link" : "http://interstices.info/tetris",
 	"links" : [
 		{
 			"title" : "Document qui document ce grain",
