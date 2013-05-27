@@ -1,40 +1,40 @@
 {
-	"name": "Le Tetris Botté",
-	"width": "800px",
-	"height": "500px",
-	"comment" : "Une illustration d'un calcul de joueur optimal, par apprentissage",
-	"link" : "http://interstices.info/tetris",
-	"links" : [
-		{
-			"title" : "Document qui document ce grain",
-			"uri" : "http://interstices.info/tetris"
-		}
-		],
-	"authors" : [
-		{
-		    "name" : "Scherrer, Bruno",
-			"email" : "bruno.scherrer@inria.fr",
-			"url" : "http://webloria.loria.fr/~scherrer",
-			"role" : "concepteur",
-			"comment" : "cahier des charges et calculs des tables de valeurs"
-		},
-		{
-		    "name" : "Testard, Léo",
-			"email" : "leo.testard@gmail.com",
-			"role" : "auteur",
-			"comment" : "version HTLM5/JS"
-		}
-		],
-	"licenses" : [
-		{
-			"name" : "CC BY-NC-SA",
-			"uri" : "http://creativecommons.org/licenses/by-nc-sa/3.0/fr",
-			"comment" : "s'applique aux documents"
-		},
-		{
-			"name" : "CeCILL-C",
-			"uri" : "http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html",
-			"comment" : "s'applique au code source"
-		}
-		]
+    "name": "Le Tetris Botté",
+    "width": "800px",
+    "height": "500px",
+    "comment" : "Une illustration d'un calcul de joueur optimal, par apprentissage",
+    "link" : "http://interstices.info/tetris",
+    "links" : [
+        {
+            "title" : "Document qui document ce grain",
+            "uri" : "http://interstices.info/tetris"
+        }
+        ],
+    "authors" : [
+        {
+            "name" : "Scherrer, Bruno",
+            "email" : "bruno.scherrer@inria.fr",
+            "url" : "http://webloria.loria.fr/~scherrer",
+            "role" : "concepteur",
+            "comment" : "cahier des charges et calculs des tables de valeurs"
+        },
+        {
+            "name" : "Testard, Léo",
+            "email" : "leo.testard@gmail.com",
+            "role" : "auteur",
+            "comment" : "version HTLM5/JS"
+        }
+        ],
+    "licenses" : [
+        {
+            "name" : "CC BY-NC-SA",
+            "uri" : "http://creativecommons.org/licenses/by-nc-sa/3.0/fr",
+            "comment" : "s'applique aux documents"
+        },
+        {
+            "name" : "CeCILL-C",
+            "uri" : "http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html",
+            "comment" : "s'applique au code source"
+        }
+        ]
 }
