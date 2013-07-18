@@ -1,7 +1,7 @@
 var config = 
 {
-    'BlockWidth' : 20,
-    'BlockHeight' : 20,
+    'BlockWidth' : 45,
+    'BlockHeight' : 45,
     'MapWidth' : 5,
     'MapHeight' : 5,
     'WindowBackground' : "#000000"
@@ -49,4 +49,21 @@ pieceTypes[6] = new PieceType(new Array(
     new Piece(3, 2, [0, 0, 1, 1, 1, 1])));
 
 /* predifined colors */
-colors = new Array( '#AA0000', '#00AA00', '#0000AA', '#AAAA00', '#00AAAA', '#AA00AA' );
+colors = new Array( 
+'#aa00aa',  /* vertical bar */
+'#0000aa',  /* cube */
+'#00aaaa',  /* 'Z' */
+'#00aa00',  /* 'S' */
+'#b24c33',  /* 'T' */
+'#aa00aa',  /* 'L' */
+'#cccccc'   /* 'L' */
+);
+colors = new Array( 
+'170, 0, 0',  /* vertical bar */
+'0, 0, 170',  /* cube */
+'0, 170, 170',  /* 'Z' */
+'0, 170, 0',  /* 'S' */
+'178, 76, 51',  /* 'T' */
+'170, 0, 170',  /* 'L' */
+'204, 204, 204'   /* 'L' */
+);

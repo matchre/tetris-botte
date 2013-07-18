@@ -691,7 +691,8 @@ enchant.Game = enchant.Class.create(enchant.EventTarget, {
             // container.style.left = Math.floor(window.innerWidth/2) - Math.floor(container.style.width/2);
             // container.style.position = absolute; 
         }
-        if (!this.scale) this.scale = 1;
+        /*if (!this.scale) */
+        this.scale = 1;
         stage.style.fontSize = '12px';
         stage.style.webkitTextSizeAdjust = 'none';
         this._element = stage;

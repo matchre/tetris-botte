@@ -1,12 +1,14 @@
 /* controller.js */
 
-OptimalController = function()
+OptimalController = function(surface)
 {
+    this.surface = surface;
+
     this.getValue = function(index)
     {
         /* this function reads the data file and return the optimal score
          * associated to an engine state representend by "index". currently,
-         * reading local files in HTML5/JS is pretty hard, to this functios will
+         * reading local files in HTML5/JS is pretty hard, to this functions will
          * use a http request to a PHP script that will read the value in a
          * server-side-stored data file and return the number. But in the future
          * it would be better for example to detect if the app is running in 
@@ -19,7 +21,7 @@ OptimalController = function()
         req.open("GET", httpRequestUrl, false);
         req.send();
 
-        return req.responseText;
+        return parseFloat(req.responseText);
     }
 
     var maxv = this.getValue('max');
@@ -39,20 +41,15 @@ OptimalController = function()
     this.play = function(game, currentMap, currentPieceType)
     {   
         log("C'est mon tour.<br />Je réfléchis...");
-
-        this.game = game;
-        this.currentMap = currentMap;
-        this.currentPieceType = currentPieceType;
-
-        handle = setInterval("callback()", 1000);
+        controller = this;
+        setTimeout(function() 
+        {
+            controller.bestAction(game, currentMap, currentPieceType);
+        }, 0);
     }
 
-    this.doAction = function()
+    this.bestAction = function(game, currentMap, currentPieceType)
     {
-        var game = this.game;
-        var currentMap = this.currentMap;
-        var currentPieceType = this.currentPieceType;
-
         var column;
         var rotation;
 
@@ -150,75 +147,43 @@ OptimalController = function()
 
         if(actions.length == 0)
         {
+
             /* all actions would make us lost. Play a random thing */
-            game.userAction(new Action(0, 0));
-            return;
-        }
+            action = new Action(0, 0);
+
+        } else {
 
         /* find the maximum and return the associate action */
-        var bestActionIndex = 0;
+        var bestActionIndices = new Array();
+        var bestActionScore = 0;
 
         for(var i = 0; i < actions.length; i++)
         {
-            var bestActionImmediateScore = actions[bestActionIndex][0];
-            var bestActionAverageScore = actions[bestActionIndex][1];
-            var bestActionScore = bestActionImmediateScore + bestActionAverageScore;
-            var score = (actions[i][0] + actions[i][1]);
-
-            if(Math.max(score, bestActionScore) == score)
+            var score = actions[i][0] + actions[i][1];
+            if(score == bestActionScore)
+                bestActionIndices.push(i)
+            else if(score > bestActionScore)
             {
                 /* this one is better than the previous */
-                bestActionIndex = i;
+                bestActionIndices = new Array();
+                bestActionIndices.push(i);
+                bestActionScore = score;
             }
         }
 
-        this.action = actions[bestActionIndex][2];
-        log("Je vais jouer l'état " + actions[bestActionIndex][3]);
+        var bestActionIndex = bestActionIndices[Math.floor(Math.random() * bestActionIndices.length)];
+        log("C'est mon tour.<br />Je joue l'état " + actions[bestActionIndex][3] + " <br />(score: " + Math.floor(bestActionScore*100 + 0.5)/100 + ")");
+        action = actions[bestActionIndex][2];
 
-        /* that is quite dirty but now better way without rewriting everything
-         * it ensures that the user can see what the computer plays before
-         * lines are completed */
-        var coords = game.placePiece(currentMap, currentPieceType, this.action, true);
-        computerSurface.drawPiece(currentPieceType, this.action.column, coords[1], this.action.rotation);
+        }
 
-        handle = setInterval("callback_finalize()", 500);
-    }
-
-    this.finalize = function() 
-    {
-        /* return the best action found */
-        this.game.userAction(this.action);
-    }
-
-    this.validate = function()
-    {
-        return;
-    }
-
-    this.otherPlayed = function()
-    {
-        return;
-    }
-
-    this.updateOther = function()
-    {
-        return;
+        var coords = game.placePiece(currentMap, currentPieceType, action, true);
+        this.surface.drawPiece(currentPieceType, action.column, coords[1], action.rotation);
+        setTimeout(function() { game.userAction(action) }, 500);
     }
 
     this.endGame = function()
     {
         return;
     }
-}
-
-callback = function()
-{
-    clearInterval(handle);
-    computerController.doAction();
-}
-
-callback_finalize = function()
-{
-    clearInterval(handle);
-    computerController.finalize();
 }

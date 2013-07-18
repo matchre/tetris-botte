@@ -59,11 +59,11 @@ GameSurface = function(game, width, height, blockWidth, blockHeight, x, y)
             var sur = surfaceMap[i];
 
             if(map[i])
-                sur.context.fillStyle = gray ? '#AAAAAA' : map[i];
+                sur.context.fillStyle = gray ? '#AAAAAA' : 'rgb(' + map[i] + ')';
             else
                 sur.context.fillStyle = '#000000';
 
-            sur.context.fillRect(0, 0, sur.width, sur.width);
+            sur.context.fillRect(1, 1, sur.width-2, sur.width-2);
         }
 
         for(i = length; i < length + 4 * width; i++)
@@ -76,7 +76,7 @@ GameSurface = function(game, width, height, blockWidth, blockHeight, x, y)
 
     this.drawPiece = function(pieceType, x, y, rotate)
     {
-       var piece = pieceType.rotated(rotate);
+        var piece = pieceType.rotated(rotate);
 
         /* draw the piece above it */
         for(var i = 0; i < piece.height; i++)
@@ -90,8 +90,8 @@ GameSurface = function(game, width, height, blockWidth, blockHeight, x, y)
 
                 if(piece.mask[blockIndex] != 0 && sur != undefined)
                 {
-                    sur.context.fillStyle = pieceType.color;
-                    sur.context.fillRect(1, 1, sur.width - 2, sur.width - 2);
+                    sur.context.fillStyle = "rgba(" + pieceType.color + ",0.7)";
+                    sur.context.fillRect(1, 1, sur.width-2, sur.width-2);
                 }
             }
         }
@@ -108,6 +108,10 @@ window.onload = function()
     var blockWidth = config['BlockWidth'];
     var blockHeight = config['BlockHeight']
 
+    var gagnees = 0;
+    var nulles = 0;
+    var perdues = 0;
+
     var m_map;
     var m_piece;
     var m_rotate;
@@ -116,12 +120,10 @@ window.onload = function()
     var m_playing = false;
 
     /* two game displays : one for the player, one for the computer */
-    var m_surface;
-    
-    computerSurface = undefined;
-    computerController = new OptimalController();
-
     var game = new Game(width*blockWidth*2 + 10, (height+4)*blockHeight, "container");
+    var m_surface = new GameSurface(game, width, height, blockWidth, blockHeight, 0, 0);
+    var computerSurface = new GameSurface(game, width, height, blockWidth, blockHeight, game.width - width*blockWidth, 0);
+    computerController = new OptimalController(computerSurface);
 
     this.play = function(game, map, currentPieceType)
     {
@@ -138,38 +140,43 @@ window.onload = function()
         onUpdate(m_map);
     }
 
-    this.endGame = function(success, piece, coords, rotate)
+    this.endGame = function(loosers, piece, coords, rotate)
     {
         /* cheesy hack : the "piece" parameter is the where he put the piece 
          * so that we can display it despite than it is not part of the map. 
-         * Currenty we have only one player so if success is false, it is him. 
-         * But one should find a better way to know "who" lost.
          */
         m_surface.redraw(m_map, false);
 
-        if(success)
-            computerSurface.drawPiece(piece, coords[0], coords[1], rotate);
-        else
-            m_surface.drawPiece(piece, coords[0], coords[1], rotate);
+        computerSurface.drawPiece(piece, coords[0], coords[1], rotate);
 
         m_playing = false;
 
-        var message = success ? 
-            'Félicitations, vous avez gagné !\n Rejouer ?' :
-            'Désolé, vous avez perdu.\n Rejouer ?';
+        var message;
+        if(loosers.length == 2)
+        {
+            message = "Match nul.\nRejouer ?";
+            nulles += 1;
+        }
+        else if(loosers[0].controller == this)
+        {
+            message = "Désolé, vous avez perdu.\nRejouer ?";
+            perdues += 1;
+        }
+        else
+        {
+            message = "Bravo, vous avez gagné.\nRejouer ?";
+            gagnees += 1;
+        }
+
+        var total = gagnees + nulles + perdues;
+        document.getElementById("gagnees").innerHTML = gagnees + "&nbsp;(" + Math.floor(gagnees/total * 100 + 0.5) + "%)";
+        document.getElementById("nulles").innerHTML = nulles + "&nbsp;(" + Math.floor(nulles/total * 100 + 0.5) + "%)";
+        document.getElementById("perdues").innerHTML = perdues + "&nbsp;(" + Math.floor(perdues/total * 100 + 0.5) + "%)";
 
         if(confirm(message))
             start();
         else
             game.stop();
-    }
-
-    game.onload = function()
-    {    
-        m_surface = new GameSurface(game, width, height, blockWidth, blockHeight, 0, 0);
-
-        var x = game.width - width*blockWidth;
-        computerSurface = new GameSurface(game, width, height, blockWidth, blockHeight, x, 0);
     }
 
     this.onClick = function(column)
@@ -184,6 +191,36 @@ window.onload = function()
         m_pieceY = coords[1];
 
         onUpdate(m_map);
+    }
+
+    this.applyKey = function(event)
+    {
+        if(window.event) event = window.event;
+        code = event.keyCode;
+        shift = event.shiftKey;
+        if(code == 73)
+            onRotate(shift ? "left" : "");
+        if(code == 74)
+        {
+            if(shift)
+                onClick(0);
+            else
+                onClick(Math.max(0, m_pieceX-1));
+        }
+        else if(code == 75)
+            onValidate();
+        else if(code == 76)
+        {
+            if(shift)
+                onClick(engine.width);
+            else
+                onClick(m_pieceX + 1);
+        }
+    }
+
+    this.onMoveRight = function()
+    {
+        this.onClick(m_pieceX - 1);
     }
 
     this.onRotate = function(direction)
@@ -206,29 +243,10 @@ window.onload = function()
         }
     }
 
-    this.validate = function(map)
-    {
-        m_surface.redraw(map);
-    }
-
     this.onUpdate = function(map)
     {
         m_surface.redraw(map);
         m_surface.drawPiece(m_piece, m_pieceX, m_pieceY, m_rotate);
-    }
-
-    this.otherPlayed = function(player, piece, coords, rotate)
-    {
-        if(player.controller == computerController)
-        {
-            computerSurface.drawPiece(m_piece, coords[0], coords[1], rotate);
-        }
-    }
-
-    this.updateOther = function(player, map)
-    {
-        if(player.controller == computerController)
-            computerSurface.redraw(map);
     }
 
     this.start = function()
@@ -238,7 +256,8 @@ window.onload = function()
         engine.start();   
     }
 
-    engine.addPlayer(this);
-    engine.addPlayer(computerController);
+    document.onkeydown = this.applyKey;
+    engine.addPlayer(this, m_surface);
+    engine.addPlayer(computerController, computerSurface);
     start();
 }

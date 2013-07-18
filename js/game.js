@@ -8,6 +8,8 @@ GameEngine = function(config)
     var piece;
     var currentPlayer;
 
+    var loosers = new Array();
+
     this.reset = function()
     {
         /* reset the map of every player */
@@ -18,10 +20,8 @@ GameEngine = function(config)
             for(var j = 0; j < width * height; j++)
                 map[j] = 0;
 
-            players[i] = new Player(players[i].controller, map)
-
-            for(var j = 0; j < players.length; j++)
-                players[j].controller.updateOther(players[i], map);
+            players[i] = new Player(players[i].controller, map, players[i].surface)
+            players[i].surface.redraw(map)
         }
     }
 
@@ -43,20 +43,21 @@ GameEngine = function(config)
     /* Rand a new piece. Get a random index inside the pieceTypes array */
     var generatePiece = function()
     {
-        var p = pieceTypes[Math.floor(Math.random() * pieceTypes.length)];
-        var color = colors[Math.floor(Math.random() * colors.length)];
+        var n = Math.floor(Math.random() * pieceTypes.length);
+        var p = pieceTypes[n];
+        var color = colors[n];
         p.color = color;
 
         return p;
     }
 
-    this.addPlayer = function(controller)
+    this.addPlayer = function(controller, surface)
     {
         var map = new Array();
         for(var i = 0; i < width * height; i++)
             map[i] = 0;
 
-        players.push(new Player(controller, map));
+        players.push(new Player(controller, map, surface));
     }
 
     this.placePiece = function(map, piece, action, simulate)
@@ -146,6 +147,8 @@ GameEngine = function(config)
 
         console.log("New turn");
 
+        loosers = new Array ();
+
         /* 1. generate piece */
         piece = generatePiece();
 
@@ -167,24 +170,19 @@ GameEngine = function(config)
         var playedPiece = piece.rotated(action.rotation);
 
         /* cheesy hack so that the user can see what the computer played 
-         * before the map is updated and the lines completed */
+         * before the map is updated and the lines completed 
         for(var i = 0; i < players.length; i++)
                 players[i].controller.otherPlayed(p, piece, coords, action.rotation);
+        */
 
         /* 4. has he failed ? check if the piece is above limit */
         if(coords[1] + playedPiece.height > height)
         {
-            /* HAHA FAIL PWNED LOL \o/ */
-            for(var i = 0; i < players.length; i++)
-
-                /* tiny hack, send the action that made this player lost the
-                 * game so that i will be displayed by others even if out of the
-                 * map */
-                players[i].controller.endGame(p != players[i], piece, coords, action.rotation);
-            
-            return;
+                loosers.push(p);
         }
 
+        if(loosers.length == 0)
+        {
         /* 5. check if he has completed lines. Browse each line starting
          * with the one he put the piece at (he can't have completed
          * anything below) 
@@ -223,15 +221,7 @@ GameEngine = function(config)
         }
 
         /* 6. validate action */
-        p.controller.validate(map);
-
-        /* tell other players what he has played */
-        for(var i = 0; i < players.length; i++)
-        {
-            if(i == currentPlayer)
-                continue;
-
-            players[i].controller.updateOther(p, map);
+        p.validate();
         }
 
         currentPlayer++;
@@ -241,6 +231,19 @@ GameEngine = function(config)
         if(currentPlayer == players.length)
         {
             /* everybody played */
+
+            if (loosers.length > 0) /* (at least) someone has loosed */
+            {
+                for(var i = 0; i < players.length; i++)
+                {
+                    /* tiny hack, send the action that made this player lost the
+                     * game so that i will be displayed by others even if out of the
+                     * map */
+                     players[i].controller.endGame(loosers, piece, coords, action.rotation);
+                }
+            
+                return;
+            }
             console.log("everybody played");
             for(var i = 0; i < players.length; i++)
                 players[i].hasPlayed = false;
@@ -253,10 +256,11 @@ GameEngine = function(config)
     }
 }
 
-Player = function(controller, map)
+Player = function(controller, map, surface)
 {
     var m_controller = controller;
     var m_map = map;
+    var m_surface = surface;
 
     this.__defineGetter__("map", function() 
     { 
@@ -267,6 +271,16 @@ Player = function(controller, map)
     { 
         return m_controller; 
     });
+
+    this.__defineGetter__("surface", function() 
+    { 
+        return m_surface; 
+    });
+
+    this.validate = function()
+    {
+        m_surface.redraw(m_map);
+    }
     
     // this.hasPlayed = false;
 }

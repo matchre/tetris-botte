@@ -383,6 +383,18 @@ a:hover {
   *width: 14.8404255306383%;
 }
 
+.row-fluid .span2 {
+  width: 150px;
+}
+
+.row-fluid .span3 {
+  width: 150px;
+}
+
+.row-fluid .span8 {
+  width: 500px;
+}
+
 .row-fluid .span1 {
   width: 6.382978723%;
   *width: 6.329787233638298%;
