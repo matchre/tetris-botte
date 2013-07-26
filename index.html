@@ -17,8 +17,8 @@
         }
 
         #buttons {
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding-top: 25px;
+            padding-bottom: 10px;
         }
 
         #enchant-stage {
@@ -30,11 +30,13 @@
         }
 
         #container {
+			padding-top: 10px;
         }
 
         .text {
+			
             text-align: left;
-            font-size: 75%;
+            font-size: 80%;
             padding: 5px;
         }
 
@@ -46,14 +48,14 @@
     <div class="container" style="width: 100%">
         <div class="row-fluid">
             <div class="span2 text">
-                <h6> Bienvenue </h6>
-                <p> Ce jeu est une version simplifé du célèbre 
-                    <a href="http://fr.wikipedia.org/wiki/Tetris">Tetris</a>
-                    dans lequel vous pouvez affronter un ordinateur jouant en
-                    utilisant un algorithme dit de <i>contrôleur optimal</i>
+                <h4> Bienvenue </h4><br />
+                <p> Ce jeu est une version simplifiée du célèbre 
+                    <a href="http://fr.wikipedia.org/wiki/Tetris" target="_blank">Tetris</a>
+                    dans lequel vous affrontez un ordinateur qui joue en
+                    utilisant un algorithme dit de <i>contrôleur optimal</i>.
                 </p>
 
-                <h6 style="margin-top: 1.5em">Pour jouer</h6>
+                <h5 style="margin-top: 1.5em">Pour jouer</h5>
                 <p>
                     <b>&Agrave; la souris</b>&nbsp;: cliquez là où vous voulez placer la pièce et
                     utilisez les boutons pour la tourner.
@@ -62,20 +64,26 @@
                     <i>J</i>, <i>L</i> (pour d&eacute;placer) et <i>K</i> (pour faire tomber).
                 </p>
 
-                <h6 style="margin-top: 1.5em"> Statistiques </h6>
+               <h5>
+                <div id="log" style="height: 20px">
+                Lorem ipsum dolor sit amet consectetur et nulla pariatur
+            </div></h5>
+        
+            
+           </div>
+           
+            <div class="span8" id="container">
+            </div>
+            
+           <div class="span2 text">
+           <h5 style="margin-top: 1.5em"> Statistiques </h5>
                 <p> Gagn&eacute;es&nbsp;: <span id="gagnees">0</span>
                 <br /> Nulles&nbsp;: <span id="nulles">0</span>
                 <br /> Perdues&nbsp;: <span id="perdues">0</span>
                 </p>
             </div>
-
-            <div class="span8" id="container">
-            </div>
-
-            <div class="span3" id="log" style="text-align: left;">
-                Lorem ipsum dolor sit amet consectetur et nulla pariatur
-            </div>
-        </div> <!-- row-fluid -->
+            </div> <!-- row-fluid -->
+       
 
         <div class="row-fluid">
             <div id="buttons" class="span12">
@@ -83,8 +91,8 @@
                 <input type="button" value="OK!" onClick="javascript:onValidate()" />
                 <input type="button" value="&#x21bb;" onClick="javascript:onRotate()" />
             </div>
-        </div>
-
-    </div> <!-- container -->
+        
+ </div>
+     </div> <!-- container -->
 </body>
 </html>
